@@ -55,6 +55,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
     'fin_manager.users.apps.UsersConfig',
+    'fin_manager.categories.apps.CategoriesConfig',
     # Your stuff: custom apps go here
 ]
 
