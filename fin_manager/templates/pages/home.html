@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% block home %}
     <div class="row">
         <div class="col-md-6"></div>
@@ -7,7 +8,13 @@
             <h3>Add expences</h3>
             <input type="number" id="amount" placeholder="Enter spent amount here">
             <input type="date" id="date">
-
+            <form method="post" action="">
+                {% csrf_token %}
+                <table>
+                    {{ form }}
+                </table>
+                <input type="submit" value="Submit Form"/>
+            </form>
         </div>
     </div>
 {% endblock %}
