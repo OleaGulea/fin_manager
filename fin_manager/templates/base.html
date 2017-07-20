@@ -16,7 +16,7 @@
     {% block css %}
     <!-- Latest compiled and minified Bootstrap 4 Alpha 4 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
+    <link href="{% static 'css/bootstrap-datepicker.min.css' %}" rel="stylesheet">
     <!-- Your stuff: Third-party CSS libraries go here -->
 
     <!-- This file stores project-specific CSS -->
@@ -97,6 +97,8 @@
 
       <script src="{% static 'js/project.js' %}"></script>
 
+      <script src="{% static 'js/moment.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
 
     {% endblock javascript %}
   </body>

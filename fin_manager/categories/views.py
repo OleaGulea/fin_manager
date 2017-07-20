@@ -6,9 +6,9 @@ from fin_manager.categories.models import Category, Entry
 from fin_manager.categories.forms import EntryForm
 
 
-def categories_list(request):
-    categories = Category.objects.all()
-    return render(request, '../templates/pages/home.html', {'categories': categories})
+# def categories_list(request):
+#     categories = Category.objects.all()
+#     return render(request, '../templates/pages/home.html', {'categories': categories})
 
 
 # def book_editor(request, book_id):
@@ -20,7 +20,7 @@ def entry_editor(request):
     if request.method == 'POST':
         form = EntryForm(request.POST)
         if form.is_valid():
-            entry_form = form.save()
+            form.save()
             messages.success(request, "New entry was created!")
             return HttpResponseRedirect('/home/')
 
