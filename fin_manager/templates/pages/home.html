@@ -1,28 +1,38 @@
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script type="text/javascript">
-$(function () {
-    $('.datepicker').datetimepicker(
-    {
-        format: 'YYYY-MM-DD',
-        sideBySide: true
-    }
-    );
-});
-</script>
-
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-{% block home %}
+{% block content %}
     <div class="row">
         <div class="col-md-8"></div>
         <div class="col-md-4">
-            <h3>Add expences</h3>
-            <form method="post" action="">
-                {% csrf_token %}
+            <h3>Add expenses</h3>
+            <form method="post" action="{% url 'home' %}">
                 {% crispy form %}
-                <button class="btn btn-success" type="submit">Submit</button>
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(function () {
+                $('.datepicker').datetimepicker(
+                    {
+                        format: 'YYYY-MM-DD',
+                        sideBySide: true
+                    }
+                );
+            });
+
+            $('select[name=category]').append($('<option>', {
+                value: 1,
+                text: 'Add new category'
+            })).change(function(){
+                if($(this).val() == 1){
+                  window.location.href = "{% url 'new_category' %}"
+                }});
+        })
+    </script>
 {% endblock %}
