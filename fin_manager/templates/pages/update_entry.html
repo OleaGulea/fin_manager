@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
+
 {% block content %}
     <div class="row">
-        <div class="col-md-8"></div>
-        <div class="col-md-4">
-            <h3>Add expenses</h3>
-            <form method="post" action="{% url 'home' %}">
+        <div class="col-md-6 col-md-offset-4">
+            <h3>Update entry</h3>
+            <form method="post" action="/update_entry/{{ entry.id }}/">
                 {% crispy form %}
             </form>
         </div>
     </div>
 {% endblock %}
+
 
 {% block javascript %}
     {{ block.super }}
@@ -25,14 +26,6 @@
                     }
                 );
             });
-
-            $('select[name=category]').append($('<option>', {
-                value: 1,
-                text: 'Add new category'
-            })).change(function(){
-                if($(this).val() == 1){
-                  window.location.href = "{% url 'category_editor' %}"
-                }});
-        })
+        });
     </script>
 {% endblock %}

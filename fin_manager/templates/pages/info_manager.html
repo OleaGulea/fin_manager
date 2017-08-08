@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="text-center my-4">Manage your info</h2>
+    <div class="row">
+        <table class="table table-striped mb-4">
+            <thead>
+                <tr>
+                    <th colspan="4">Edit/Delete category</th>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for category in categories %}
+                <tr>
+                <td class="px-2">{{ category }}</td>
+                <td class="px-2">{{ category.description }}</td>
+                <td class="px-2"><a href="/category_editor/{{ category.id }}/" class="btn btn-info btn-sm">Edit</a></td>
+                <td class="px-2"><a href="/delete_category/{{ category.id }}/" class="btn btn-danger btn-sm">Delete</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th colspan="5">Edit/Delete entries</th>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for entry in entries %}
+                <tr>
+                <td class="px-2">{{ entry.date }}</td>
+                <td class="px-3">{{ entry.amount }}</td>
+                <td class="px-2">{{ entry.category }}</td>
+                <td class="px-2"><a href="/update_entry/{{ entry.id }}" class="btn btn-info btn-sm">Edit</a></td>
+                <td class="px-2"><a href="/delete_entry/{{ entry.id }}" class="btn btn-danger btn-sm">Delete</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+
+{% endblock %}

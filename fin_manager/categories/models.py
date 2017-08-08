@@ -15,7 +15,7 @@ class Category(models.Model):
 
 
 class Entry(models.Model):
-    category = models.ForeignKey(Category, related_name='entries')
+    category = models.ForeignKey(Category, related_name='entries', on_delete=models.PROTECT)
     date = models.DateField(default=datetime.now)
     amount = models.FloatField()
 
