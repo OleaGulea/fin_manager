@@ -1,7 +1,11 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.urls.base import reverse
+from django.db.models import Sum
+from django.http import JsonResponse
 
 from fin_manager.categories.models import Category, Entry
 from fin_manager.categories.forms import EntryForm, CategoryForm
@@ -90,3 +94,8 @@ def delete_entry(request, entry_id):
     entry.delete()
     messages.success(request, "Entry was deleted!")
     return HttpResponseRedirect(reverse('info_manager'))
+
+
+def expenses_by_month(request):
+    data = Category.objects.all().filter(entries__date__month=datetime.now().month).values('title').annotate(expenses=Sum('entries__amount'))
+    return JsonResponse(list(data), safe=False)

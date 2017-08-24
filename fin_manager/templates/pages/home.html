@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load staticfiles %}
 
 {% block content %}
     <div class="row">
-        <div class="col-md-8"></div>
+        <div class="col-md-8">
+            <h3>This month expenses</h3>
+            <div id="chart">
+                <svg width="960" height="500"></svg>
+            </div>
+        </div>
         <div class="col-md-4">
             <h3>Add expenses</h3>
             <form method="post" action="{% url 'home' %}">
@@ -13,8 +19,16 @@
     </div>
 {% endblock %}
 
+{% block css %}
+    {{ block.super }}
+    <link href="{% static 'css/nv.d3.css' %}" rel="stylesheet">
+{% endblock css %}
+
 {% block javascript %}
     {{ block.super }}
+    <script src="http://d3js.org/d3.v3.js"></script>
+    <script src="{% static 'js/nv.d3.min.js' %}"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $(function () {
@@ -33,6 +47,27 @@
                 if($(this).val() == 1){
                   window.location.href = "{% url 'category_editor' %}"
                 }});
-        })
+        });
+
+        d3.json("{% url "expenses_by_month" %}", function(error, data) {
+            nv.addGraph(function () {
+                var chart = nv.models.pieChart()
+                    .x(function (d) {
+                        return d.title
+                    })
+                    .y(function (d) {
+                        return d.expenses
+                    })
+                    .showLabels(true);
+
+                d3.select("#chart svg")
+                    .datum(data)
+                    .transition().duration(350)
+                    .call(chart);
+
+                return chart;
+            });
+        });
+
     </script>
 {% endblock %}
